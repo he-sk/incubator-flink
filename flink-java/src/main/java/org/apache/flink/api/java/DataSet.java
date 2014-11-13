@@ -32,7 +32,7 @@ import org.apache.flink.api.common.io.OutputFormat;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
 import org.apache.flink.api.common.operators.base.JoinOperatorBase.JoinHint;
 import org.apache.flink.api.common.operators.base.PartitionOperatorBase.PartitionMethod;
-import org.apache.flink.api.java.aggregation.Aggregations;
+import org.apache.flink.api.java.aggregation.deprecated.Aggregations;
 import org.apache.flink.api.java.functions.FormattingMapper;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.functions.SelectByMaxFunction;
@@ -269,6 +269,7 @@ public abstract class DataSet<T> {
 	 * @see AggregateOperator
 	 * @see DataSet
 	 */
+	@Deprecated
 	public AggregateOperator<T> aggregate(Aggregations agg, int field) {
 		return new AggregateOperator<T>(this, agg, field, Utils.getCallLocationName());
 	}
@@ -280,6 +281,7 @@ public abstract class DataSet<T> {
 	 *
 	 * @see org.apache.flink.api.java.operators.AggregateOperator
 	 */
+	@Deprecated
 	public AggregateOperator<T> sum (int field) {
 		return this.aggregate (Aggregations.SUM, field);
 	}
@@ -291,6 +293,7 @@ public abstract class DataSet<T> {
 	 *
 	 * @see org.apache.flink.api.java.operators.AggregateOperator
 	 */
+	@Deprecated
 	public AggregateOperator<T> max (int field) {
 		return this.aggregate (Aggregations.MAX, field);
 	}
@@ -302,6 +305,7 @@ public abstract class DataSet<T> {
 	 *
 	 * @see org.apache.flink.api.java.operators.AggregateOperator
 	 */
+	@Deprecated
 	public AggregateOperator<T> min (int field) {
 		return this.aggregate (Aggregations.MIN, field);
 	}

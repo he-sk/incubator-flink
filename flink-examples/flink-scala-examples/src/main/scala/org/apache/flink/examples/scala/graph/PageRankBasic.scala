@@ -19,7 +19,7 @@ package org.apache.flink.examples.scala.graph
 
 import org.apache.flink.api.scala._
 import org.apache.flink.examples.java.graph.util.PageRankData
-import org.apache.flink.api.java.aggregation.Aggregations.SUM
+import org.apache.flink.api.java.aggregation.deprecated.Aggregations.SUM
 
 import org.apache.flink.util.Collector
 
