@@ -312,7 +312,7 @@ public abstract class DataSet<T> {
 	 * @see org.apache.flink.api.java.operators.AggregateOperator
 	 */
 	@Deprecated
-	public AggregateOperator<T> sum (int field) {
+	public AggregateOperator<T> _sum(int field) {
 		return this.aggregate (Aggregations.SUM, field);
 	}
 
@@ -324,7 +324,7 @@ public abstract class DataSet<T> {
 	 * @see org.apache.flink.api.java.operators.AggregateOperator
 	 */
 	@Deprecated
-	public AggregateOperator<T> max (int field) {
+	public AggregateOperator<T> _max(int field) {
 		return this.aggregate (Aggregations.MAX, field);
 	}
 
@@ -336,7 +336,7 @@ public abstract class DataSet<T> {
 	 * @see org.apache.flink.api.java.operators.AggregateOperator
 	 */
 	@Deprecated
-	public AggregateOperator<T> min (int field) {
+	public AggregateOperator<T> _min(int field) {
 		return this.aggregate (Aggregations.MIN, field);
 	}
 	
