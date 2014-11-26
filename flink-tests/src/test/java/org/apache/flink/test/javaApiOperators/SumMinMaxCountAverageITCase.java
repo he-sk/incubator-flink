@@ -35,7 +35,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 @RunWith(Parameterized.class)
-public class SumMinMaxITCase extends JavaProgramTestBase  {
+public class SumMinMaxCountAverageITCase extends JavaProgramTestBase  {
 
 	private static int NUM_PROGRAMS = 3;
 
@@ -43,7 +43,7 @@ public class SumMinMaxITCase extends JavaProgramTestBase  {
 	private String resultPath;
 	private String expectedResult;
 
-	public SumMinMaxITCase(Configuration config) {
+	public SumMinMaxCountAverageITCase(Configuration config) {
 		super(config);
 	}
 
@@ -90,15 +90,14 @@ public class SumMinMaxITCase extends JavaProgramTestBase  {
 
 					DataSet<Tuple3<Integer, Long, String>> ds = CollectionDataSets.get3TupleDataSet(env);
 					DataSet<Tuple2<Integer, Long>> sumDs = ds
-							.sum(0)
-							.andMax(1)
-							.project(0, 1).types(Integer.class, Long.class);
+							.count().sum(0).min(0).max(0).average(0).sum(1).min(1).max(1).average(1).min(2).max(2)
+							.aggregate();
 
 					sumDs.writeAsCsv(resultPath);
 					env.execute();
 
 					// return expected result
-					return "231,6\n";
+	                return "21,231,1,21,11.0,91,1,6,4.333333333333333,Comment#1,Luke Skywalker\n";
 				}
 				case 2: {
 				/*
@@ -109,19 +108,19 @@ public class SumMinMaxITCase extends JavaProgramTestBase  {
 
 					DataSet<Tuple3<Integer, Long, String>> ds = CollectionDataSets.get3TupleDataSet(env);
 					DataSet<Tuple2<Long, Integer>> aggregateDs = ds.groupBy(1)
-							.sum(0)
-							.project(1, 0).types(Long.class, Integer.class);
+							.key(1).count().sum(0).min(0).max(0).average(0).min(2).max(2)
+							.aggregate();
 
 					aggregateDs.writeAsCsv(resultPath);
 					env.execute();
 
 					// return expected result
-					return "1,1\n" +
-							"2,5\n" +
-							"3,15\n" +
-							"4,34\n" +
-							"5,65\n" +
-							"6,111\n";
+	                return "1,1,1,1,1,1.0,Hi,Hi\n" +
+	                "2,2,5,2,3,2.5,Hello,Hello world\n" +
+	                "3,3,15,4,6,5.0,Hello world, how are you?,Luke Skywalker\n" +
+	                "4,4,34,7,10,8.5,Comment#1,Comment#4\n" +
+	                "5,5,65,11,15,13.0,Comment#5,Comment#9\n" +
+	                "6,6,111,16,21,18.5,Comment#10,Comment#15\n";
 				}
 				case 3: {
 				/*
@@ -132,15 +131,14 @@ public class SumMinMaxITCase extends JavaProgramTestBase  {
 
 					DataSet<Tuple3<Integer, Long, String>> ds = CollectionDataSets.get3TupleDataSet(env);
 					DataSet<Tuple1<Integer>> aggregateDs = ds.groupBy(1)
-							.min(0)
-							.min(0)
-							.project(0).types(Integer.class);
+							.count().min(0).max(0).sum(0).average(0).aggregate()
+							.sum(0).sum(1).sum(2).sum(3).sum(4).aggregate();
 
 					aggregateDs.writeAsCsv(resultPath);
 					env.execute();
 
 					// return expected result
-					return "1\n";
+	                return "21,41,56,231,48.5\n";
 				}
 				default:
 					throw new IllegalArgumentException("Invalid program id");
